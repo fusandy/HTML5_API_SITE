@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0214 content editable with localStorage</title>
+    <style>
+        #info{
+            border: 2px solid gray;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h3>localStorage</h3>
+    <div id="info" contenteditable="true">
+    </div>
+    <script>
+        // contenteditable可以搭配偵聽 input, keyup, blur等，但無法偵聽change
+        const info = document.querySelector('#info');
+        info.addEventListener('input', function(){
+            // console.log(info.innerHTML);
+            console.log(info.innerText);
+            localStorage.setItem('myData', info.innerText);
+        })
+
+        // 一進到網頁就先讀取localStorage
+        // localStorage如果沒有手動清除，會一直存在記憶體
+        const defaultData = localStorage.getItem('myData');
+        console.log('defaultData:', defaultData);
+        if(defaultData){
+            info.innerText = defaultData;
+            console.log('info.innerText:', info.innerText);
+        }
+    </script>
+</body>
+</html>

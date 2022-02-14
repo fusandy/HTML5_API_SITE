@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const serverIndex = require('serve-index');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,10 +21,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
+app.use(serverIndex('public',{icons:true}));
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
+// middleware
 app.use(function(req, res, next) {
   next(createError(404));
 });

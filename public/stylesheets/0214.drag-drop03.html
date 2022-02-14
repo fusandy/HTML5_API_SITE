@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag drop03</title>
+    <style>
+        .container{
+            display: flex;
+        }
+        .box{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: rgb(189, 183, 183);
+            margin-right: 10px;
+        }
+        .ball{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: antiquewhite;
+            text-align: center;
+            line-height: 50px;
+            color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="ball" draggable="true" id="ball1">1</div>
+            <div class="ball" draggable="true" id="ball2">2</div>
+            <div class="ball" draggable="true" id="ball3">3</div>
+        </div>
+        <div class="box"></div>
+    </div>
+
+    <script src="/javascripts/js/jquery-3.6.0.js"></script>
+    <script>
+        let dragTarget = null;
+        const ball = $('.ball');
+        const box = $('.box');
+
+        ball.on('dragstart',function(event){
+            const dragTarget = $(event.target);
+            console.log(dragTarget);
+        });
+
+        box.on('dragover',function(event){
+            event.preventDefault();
+        })
+
+        box.on('drop',function(event){
+            const dropTarget = $(event.target);
+            console.log(dropTarget);
+            if(dropTarget.hasClass('box')){
+                dropTarget.append(dragTarget);
+            }
+            dragTarget = null;
+        });
+
+    </script>
+    
+        
+
+</body>
+</html>

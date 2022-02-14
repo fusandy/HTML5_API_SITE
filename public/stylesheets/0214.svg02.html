@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>svg02</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div style="width: 200px;">
+        <!-- svg copy from public/images/inkscape02.svg -->
+        <svg width="210mm" height="297mm" version="1.1" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
+            <path class="circle" transform="scale(.26458)" d="m221 192c6.9191 5.9665-4.629 12.27-9.9167 11.5-14.329-2.0879-17.93-19.978-13.083-31.333 
+            8.6703-20.312 34.772-24.547 52.75-14.667 26.384 14.499 31.341 49.76 16.25 74.167-20.114 32.53-64.816 38.21-95.583 
+            17.833-38.717-25.642-45.117-79.904-19.417-117 31.127-44.928 95.011-52.047 138.42-21 51.152 36.588 58.991 110.13 22.583 
+            159.83-42.034 57.386-125.25 65.944-181.25 24.167-63.626-47.47-72.903-140.38-25.75-202.67 52.899-69.871 155.52-79.867 
+            224.08-27.333 76.119 58.323 86.835 170.66 28.917 245.5" fill="#fca" fill-rule="evenodd" stroke="#000"/>
+        </svg>   
+    </div>
+
+    <script>
+        const circle = document.querySelector('.circle');
+        circle.addEventListener('mouseover',function(){
+            // this.setAttribute('fill','lightskyblue');   // 改變屬性值
+            this.style.fill = 'lightgray';  // 設定inline style
+        })
+        circle.addEventListener('mouseout',function(){
+            // this.setAttribute('fill','#fca');   // 改變屬性值
+            this.style.fill = '#fca';
+        })
+    </script>
+</body>
+</html>

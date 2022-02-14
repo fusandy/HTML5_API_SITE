@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas line1</title>
+    <style>
+        canvas{
+            border: 1px dotted gray;
+        }
+    </style>
+</head>
+<body>
+    <!-- canvas標籤一般會使用id -->
+    <canvas id="myDraw" width="800px" height="600px"></canvas>
+    <script>
+        const myDraw = document.querySelector('#myDraw');
+        const context = myDraw.getContext('2d');  // 宣告2D控制器
+
+        context.beginPath();            // 重置路徑 (x,y)
+        context.moveTo(150,200);          // 起始值從(0,0)移動到(50,50)
+        context.lineTo(400,500);        // (50,50) -> (250,300) 畫一條線
+        context.lineTo(650,200);         // (250,300) -> (450,50) 再畫一條線
+        context.strokeStyle = 'skyblue';
+        context.lineWidth = 20;         // 單位是px
+        context.stroke();               // 呼叫stroke()開始畫畫
+
+
+        //TODO: JS拖曳畫泡泡改用canvas寫
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag drop02</title>
+    <style>
+        .container{
+            display: flex;
+        }
+        .box{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: rgb(189, 183, 183);
+            margin-right: 10px;
+        }
+        .ball{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: antiquewhite;
+            text-align: center;
+            line-height: 50px;
+            color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="ball" draggable="true" id="ball1">1</div>
+            <div class="ball" draggable="true" id="ball2">2</div>
+            <div class="ball" draggable="true" id="ball3">3</div>
+        </div>
+        <div class="box"></div>
+    </div>
+
+    <script src="/javascripts/js/jquery-3.6.0.js"></script>
+    <script>
+        const ball = $('.ball');
+        const box = $('.box');
+
+        ball.on('dragstart',function(event){
+            const dragTargetId = event.target.id;
+            console.log(dragTargetId);
+            // 原生js可以直接寫 event.dataTransfer.setData/getData
+            // 但是在jQuery的event的寫法下，必須加上originalEvent拿到原生JS，才能再dataTransfer
+            event.originalEvent.dataTransfer.setData('text',dragTargetId);
+        });
+
+        box.on('dragover',function(event){
+            event.preventDefault();
+        })
+
+        box.on('drop',function(event){
+            const dropTarget = $(event.target);
+            console.log(dropTarget);
+            if(dropTarget.hasClass('box')){
+                console.log(event.originalEvent);
+                const moveTargetId = event.originalEvent.dataTransfer.getData('text');
+                dropTarget.append($('#'+moveTargetId));
+            }
+        });
+
+    </script>
+    
+        
+
+</body>
+</html>
