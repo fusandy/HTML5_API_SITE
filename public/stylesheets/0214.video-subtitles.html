@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebVTT</title>
+    <style>
+		video{
+			width: 640px;
+			height: 360px;
+		}
+	</style>
+</head>
+<body>
+    <video src="./../images/smiley.mp4"
+	   preload="auto" controls
+	   poster="./../images/maxresdefault.jpg">
+	<track kind="subtitles" label="正體中文" src="./../images/smiley-zh.vtt" default />
+	<track kind="subtitles" label="English" src="./../images/smiley-en.vtt" />
+    </video>
+</body>
+</html>

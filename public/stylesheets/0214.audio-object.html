@@ -7,28 +7,38 @@
     <title>audio object</title>
 </head>
 <body>
-    <button id="doLoad">載入</button>
+    <button id="doLoad">載入並播放</button>
     <button id="doPlay" style="display: none;">播放或停止</button>
 
     <script>
         const doLoad = document.querySelector('#doLoad');
         const doPlay = document.querySelector('#doPlay');
-        const au = new Audio();
-        const handler = event=>{
-            console.log(` ${event.type}
-                duration: ${au.duration}, currentTime: ${au.currentTime},
-                volume: ${au.volume}, muted: ${au.muted}, paused: ${au.paused} `);
-        };
-        au.addEventListener('loadedmetadata', handler);
-        au.addEventListener('timeupdate', handler);
-        au.addEventListener('ended', handler);
 
-        doLoad.onclick = ()=>{
-            au.src = 'media/196381__minitauross__panflute-loop.mp3';
+        // 使用audio物件載入
+        const audio = new Audio();
+
+        const handler = function(event){
+            console.log(` event.type: ${event.type},
+                duration: ${audio.duration}, currentTime: ${audio.currentTime},
+                volume: ${audio.volume}, muted: ${audio.muted}, paused: ${audio.paused} `);
+        };
+
+        audio.addEventListener('loadedmetadata', handler);
+        audio.addEventListener('timeupdate', handler);
+        audio.addEventListener('ended', handler);
+
+        // 載入click event
+        doLoad.addEventListener('click', function(){
+            audio.src = './../images/for-elise.mp3';
+            audio.play();  // 載入時直接啟動播放
             doLoad.style.display = 'none';
             doPlay.style.display = 'block';
-        };
-        doPlay.onclick = ()=> au.paused ? au.play() : au.pause();
+        });
+
+        // 播放暫停click event
+        doPlay.addEventListener('click', function(){
+            audio.paused ? audio.play() : audio.pause();
+        });
     </script>
 </body>
 </html>

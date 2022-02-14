@@ -57,9 +57,8 @@
 
         box.on('drop',function(event){
             const dropTarget = $(event.target);
-            console.log(dropTarget);
+            console.log('dropTarget:', dropTarget);
             if(dropTarget.hasClass('box')){
-                console.log(event.originalEvent);
                 const moveTargetId = event.originalEvent.dataTransfer.getData('text');
                 dropTarget.append($('#'+moveTargetId));
             }
