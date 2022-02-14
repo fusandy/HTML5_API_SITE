@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form input pattern</title>
+</head>
+<body>
+    <form action="" onsubmit="return false;" novalidate autocomplete="on">
+        <label for="myName">姓名：</label>
+        <input type="text" name="myName" id="myName" required autofocus><br>
+    
+        <label for="myEmail">電郵：</label>
+        <input type="email" name="myEmail" id="myEmail"><br>
+    
+        <label for="myGroup">組別：</label>
+        <!-- type="text" 屬性list，可以用選的也可以是text輸入欄(本質仍是text) vs select只能選不能輸入 -->
+        <input type="text" name="myGroup" id="myGroup" list="mylist">
+        <datalist id="mylist">
+            <option value="甲組"></option>
+            <option value="乙組"></option>
+            <option value="丙組"></option>
+        </datalist><br>
+    
+        <label for="myTel">手機號碼：</label>
+        <input type="tel" name="myTel" id="myTel"
+               pattern="^09\d{2}-?\d{3}-?\d{3}$"><br>
+        <input type="submit">
+    </form>
+</body>
+</html>

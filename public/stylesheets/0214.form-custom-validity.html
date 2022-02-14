@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form validity</title>
+</head>
+<body>
+    <!-- form的新屬性 : autocomplete, novalidate -->
+    <form action="" onsubmit="return false;" autocomplete="on">
+        <div>
+            <label for="myName">帳號：</label>
+            <input type="text" name="myName" id="myName" required autofocus>
+        </div>
+        <div>
+            <label for="myPass">密碼：</label>
+            <input type="password" name="myPass" id="myPass" pattern=".{6,}" required><br>
+        </div>
+        <div>
+            <label for="myPass2">密碼確認：</label>
+            <input type="password" name="myPass2" id="myPass2"><br>
+        </div>
+        <input type="submit" value="註冊">
+    </form>
+
+    <script>
+        const myPass = document.querySelector('#myPass');
+        const myPass2 = document.querySelector('#myPass2');
+    
+        myPass2.addEventListener('blur', function(event){
+            console.log(event);
+            if(myPass.value !== myPass2.value) {
+                // 只要有設定，送出前就會顯示
+                myPass2.setCustomValidity('密碼不一致');
+            } else {
+                // setCustomValidity('') 使用空字串表示元素沒有發生違反自定檢核條件的錯誤
+                myPass2.setCustomValidity(''); // 取消
+            }
+        });
+    </script>
+</body>
+</html>
