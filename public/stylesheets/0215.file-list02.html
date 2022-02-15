@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>file list02</title>
+</head>
+<body>
+    <input type="file" id="uploadFile" multiple>
+    <div class="imgs"></div>
+    <script>
+        const uploadFile = document.querySelector('#uploadFile');
+        const imgs = document.querySelector('.imgs');
+
+        const doLoaded = function(event){
+            // 迴圈中的fileReader是doloaded的event.target
+            // const img = new Image();
+            // img.width = 200;
+            // img.src = event.target.result;   // 丟入的result格式:base64編碼
+            // imgs.append(img);
+            // new Image() 動態產生 image，最後append到DOM裡
+            // 因為是動態產生的，所以選取檔案的順序 不等於 渲染呈現的圖片順序
+
+            // 改寫成 template : 
+            const element = `<div><img src="${event.target.result}" width="200"></div>`;
+            imgs.innerHTML += element ;
+        }
+
+        uploadFile.addEventListener('change',event => {
+            // 每一次上傳前先把div清空
+            imgs.innerHTML = '';
+            console.log('uploadFile.files', uploadFile.files);
+
+            for(let file of uploadFile.files){
+                const fileReader = new FileReader();
+                // FileReader是一個非同步的操作
+                fileReader.addEventListener('load', doLoaded);
+                // FileReader.readAsDataURL()的result屬性將包含一個data:URL格式的字符串（base64編碼）以表示所讀取文件的內容
+                fileReader.readAsDataURL(file);
+            }
+        })
+    </script>
+</body>
+</html>
