@@ -28,6 +28,7 @@
         const myPass = document.querySelector('#myPass');
         const myPass2 = document.querySelector('#myPass2');
     
+        // 當"密碼確認"欄位失焦的時候，觸發驗證function
         myPass2.addEventListener('blur', function(event){
             console.log(event);
             if(myPass.value !== myPass2.value) {

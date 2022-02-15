@@ -25,11 +25,15 @@
 
     <script>
         let inputs = document.querySelectorAll('input');
+        console.log(inputs);
+
         const myValidate = function(event){
-            // console.log(event.target);
-            console.log('event.target.validity:',event.target.validity);
             const t = event.target;
+            console.log('event.target:',event.target);
+
             const v = t.validity;
+            console.log('event.target.validity:',event.target.validity);
+
             let msg = '';
             switch(true){
                 case v.valueMissing:
@@ -42,11 +46,14 @@
                     msg = '請填寫規定的格式';
                     break;
             }
+            console.log(msg)
+            console.log('t', t)
             t.setCustomValidity(msg);
         };
 
-        // 為什麼這裡用blur?
+        // 每一個input都增加偵聽器
         inputs.forEach(function(inp){
+            console.log(inp);
             inp.addEventListener('blur', myValidate);
         });
     

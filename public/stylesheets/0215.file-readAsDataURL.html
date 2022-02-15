@@ -34,10 +34,10 @@
 
             for(let file of uploadFile.files){
                 const fileReader = new FileReader();
-                // FileReader是一個非同步的操作
-                fileReader.addEventListener('load', doLoaded);
                 // FileReader.readAsDataURL()的result屬性將包含一個data:URL格式的字符串（base64編碼）以表示所讀取文件的內容
                 fileReader.readAsDataURL(file);
+                // FileReader是一個非同步的操作
+                fileReader.addEventListener('load', doLoaded);
             }
         })
     </script>

@@ -28,6 +28,7 @@
             left: 10px;
             top: 50px;
             cursor: pointer;
+            /* user-select 文字可不可以被選取 */
             user-select: none;
             /* pointer-events: none; */
         }
@@ -102,7 +103,6 @@
                 top: event.pageY - dragTarget.dy + 'px',
             })
         };
-
 
         box.on('mousedown', mouseDown);
         $(window).on('mouseup', mouseUp)

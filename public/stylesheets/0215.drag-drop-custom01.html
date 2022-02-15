@@ -61,6 +61,9 @@
                 console.log('dy:', dragTarget.dy)
                 console.log('event.offsetX:', event.offsetX)
                 console.log('event.offsetY:', event.offsetY)
+                console.log('event.pageX:', event.pageX)
+                console.log('event.pageY:', event.pageY)
+
                 console.log('dragTarget:',dragTarget)
                 box.on('mousemove', mouseMove);
             }
@@ -73,21 +76,25 @@
             box.off('mousemove', mouseMove);
         };
 
-        // 拖曳的時候要看滑鼠移動到哪裡 version 1
+        // 拖曳的時候跟著滑鼠移動
         const mouseMove = function(event){
             if(dragTarget.t === null) return;
             console.log('event.pageX:', event.pageX);
             console.log('event.pageY:', event.pageY);
             dragTarget.t.css({
-                left: event.pageX - dragTarget.dx + 'px',
-                top: event.pageY - dragTarget.dy + 'px',
+                // 扣掉距離差，滑鼠拖曳的時候，會以點擊的位置為中心
+                left: event.pageX - dragTarget.dx  + 'px',
+                top: event.pageY - dragTarget.dy  + 'px',
             })
         };
-
 
         box.on('mousedown', mouseDown);
         $(window).on('mouseup', mouseUp)
 
+        /*
+        page: 以瀏覽器視窗為座標依據
+        offset: 以滑鼠所在的物件左上角為(0,0)，所顯示的滑鼠座標
+        */
     </script>
 </body>
 </html>
