@@ -5,22 +5,77 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>localStorage list orderby</title>
+    <style>
+		table, tr, td {
+			border-collapse: collapse;
+			border: 1px solid gray;
+		}
+		thead {
+			background-color: #629bff;
+		}
+		tbody>tr:nth-child(2n) {
+			background-color: #8dd0ff;
+		}
+	</style>
 </head>
 <body>
-    <a href="localStorage-setItem.html">新增項目</a>
+    <a href="0215.localStorage-setItem.html">新增項目</a>
     <table>
-	    <thead>
-        <tr>
-            <td>刪除</td>
-            <td>姓名</td>
-            <td>年齡</td>
-            <td>手機</td>
-        </tr>
-	    </thead>
-        <tbody id="the-list">
-        </tbody>
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>年齡</td>
+                <td>手機</td>
+            </tr>
+        </thead>
+	    <tbody id="the-list"></tbody>
     </table>
-    
+
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
+    <script>
+        const contactList = "contact-book:";
+        const tbody = document.querySelector('#the-list');
+        
+        let bData = [];
+
+        const showData = function(){
+            tbody.innerHTML = '';
+            bData = [];
+            for (let i = 0; i<localStorage.length; i++){
+                let key = localStorage.key(i);
+                if(key.indexOf(contactList)===0){
+                    let data = localStorage.getItem(key);
+                    data = JSON.parse(data);
+                    console.log(data);
+                    
+                    data.key = key;
+                    console.log('data.key=key:', data);
+                    
+                    bData.push(data);
+                    console.log('bData:', bData);
+                }
+            }
+            // 排序
+            bData.sort(function(a,b){
+                return a.name > b.name ? 1 : -1;
+            })
+            for(let i = 0; i<bData.length;i++){
+                let data = bData[i];
+                tbody.innerHTML += `<tr>
+                    <td><a href="javascript:removeItem('${data.key}')">X</a></td>
+                    <td>${data.name}</td>
+                    <td>${data.age}</td>
+                    <td>${data.mobile}</td>
+                    </tr>`
+            }
+        };
+        showData();
+
+        const removeItem = function(key){
+            if(!confirm('Are you sure to delete the item?')) return;
+            localStorage.removeItem(key);
+            showData();
+        }
+    </script>
 </body>
 </html>

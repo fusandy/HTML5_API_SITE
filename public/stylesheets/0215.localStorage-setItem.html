@@ -7,8 +7,8 @@
     <title>localStorage setItem</title>
 </head>
 <body>
-    <a href="localStorage-getItem.html">列表</a>
-    <form name="form1">
+    <a href="0215.localStorage-getItem.html">列表</a>
+    <form name="contactForm">
         <label for="name">姓名</label>
         <input type="text" name="name" id="name" required><br>
         <label for="age">年齡</label>
@@ -21,20 +21,23 @@
 
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
-        const prefix = 'friend-book;;';
-        document.form1.onsubmit = ()=>{
-            const t = new Date().getTime();
+        const contactList = "contact-book:";
+        document.contactForm.onsubmit = function(event){
+            const time = new Date().getTime();
+            console.log('time', time);
+            
             let data = {
-                name: document.form1.name.value,
-                age: document.form1.age.value,
-                mobile: document.form1.mobile.value,
-                time: t,
-            };
-            localStorage.setItem(prefix+t, JSON.stringify(data));
-            document.form1.reset();  // 將表單回到初始狀態
-            alert('儲存完成!');
+                name: document.contactForm.name.value,
+                age: document.contactForm.age.value,
+                mobile: document.contactForm.mobile.value,
+                time: time,
+            }
+            localStorage.setItem(contactList+time, JSON.stringify(data));
+            console.log('localStorage:', localStorage);
+            document.contactForm.reset();
+            alert('Saved!');
             return false;
-        };
+        }
     </script>
 </body>
 </html>

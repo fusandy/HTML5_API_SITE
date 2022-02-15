@@ -19,7 +19,7 @@
 	</style>
 </head>
 <body>
-    <a href="localStorage-setItem.html">新增項目</a>
+    <a href="0215.localStorage-setItem.html">新增項目</a>
     <table>
         <thead>
             <tr>
@@ -33,7 +33,27 @@
 
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
-        
+        const contactList = "contact-book:";
+        const tbody = document.querySelector('#the-list');
+        const showData = function(){
+            for (let i = 0; i<localStorage.length; i++){
+                // key 是 contact-book + timestamp
+                let key = localStorage.key(i);
+                console.log(key.indexOf(contactList));
+
+                // 為什麼這裡要做這個判斷???
+                // if(key.indexOf(contactList)===0){
+                    let data = localStorage.getItem(key);
+                    data = JSON.parse(data);
+                    tbody.innerHTML += `<tr>
+                    <td>${data.name}</td>
+                    <td>${data.age}</td>
+                    <td>${data.mobile}</td>
+                    </tr>`
+                // }
+            }
+        };
+        showData();
     </script>
 </body>
 </html>
