@@ -23,20 +23,17 @@
 	const videos = [
 		'./../images/smiley.mp4',
 	];
-
 	const player = document.querySelector('#player');
-	
 	const btns = {
 		video: document.querySelector('#video'),
 		doPlay: document.querySelector('#doPlay'),
 	};
-
+	
 	const playerListener = event=>{
 		console.log(` event.type: ${event.type},
 		duration: ${player.duration}, currentTime: ${player.currentTime},
 		volume: ${player.volume}, muted: ${player.muted}, paused: ${player.paused} `);
 	};
-
 	player.addEventListener('loadedmetadata', playerListener);
 	player.addEventListener('timeupdate', playerListener);
 	player.addEventListener('ended', playerListener);
@@ -45,7 +42,7 @@
 		switch(event.target) {
 			case btns.video:
 				player.src = videos[0];
-				player.play();
+				// player.play();  // 載入時直接啟動播放
 				break;
 			case btns.doPlay:
 				player.paused ? player.play() : player.pause();

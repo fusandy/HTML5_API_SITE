@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>drag drop03 拖曳</title>
+    <title>drag drop04 拖曳複製並移除拖曳target的draggable</title>
     <style>
         .container{
             display: flex;
@@ -31,9 +31,10 @@
 <body>
     <div class="container">
         <div class="box">
-            <div class="ball" draggable="true" id="ball1">1</div>
-            <div class="ball" draggable="true" id="ball2">2</div>
-            <div class="ball" draggable="true" id="ball3">3</div>
+            <!-- 若用複製的，id會變成不是唯一 -->
+            <div class="ball" draggable="true">1</div>
+            <div class="ball" draggable="true">2</div>
+            <div class="ball" draggable="true">3</div>
         </div>
         <div class="box"></div>
     </div>
@@ -44,20 +45,26 @@
         const ball = $('.ball');
         const box = $('.box');
 
-        box.on('dragstart',function(event){
+        // 改偵聽box的index
+        box.eq(0).on('dragstart',function(event){
             dragTarget = $(event.target);
             console.log(dragTarget);
         });
 
-        box.on('dragover',function(event){
+        box.eq(1).on('dragover',function(event){
             event.preventDefault();
         })
 
-        box.on('drop',function(event){
-            const dropTarget = $(event.target);
-            console.log(dropTarget);
-            if(dropTarget.hasClass('box')){
-                dropTarget.append(dragTarget);
+        box.eq(1).on('drop',function(event){
+            const t = $(event.target);
+            console.log('t', t);
+            if(t.hasClass('box')){
+                if(dragTarget){
+                    const clone = dragTarget.clone();
+                    // 複製的ball移除可拖曳功能
+                    clone.removeAttr('draggable')
+                    t.append(clone);
+                }
             }
             dragTarget = null;   // event結束後將dragTarget設置回null
         });

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag-drop custom01</title>
+    <style>
+        .box {
+            position: absolute;
+            width: 600px;
+            height: 400px;
+            background-color: rgb(211, 211, 211);
+            /* border: black solid 1px; */
+            left: 0;
+            top: 0;
+        }
+        .ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #eb8787;
+            /* border: black solid 1px; */
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            left: 10px;
+            top: 50px;
+            cursor: pointer;
+            /* pointer-events: none; */
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="ball">1</div>
+        <div class="ball" style="left:70px; background-color: skyblue;">2</div>
+        <div class="ball" style="left:140px; background-color: rgb(241, 188, 72);">3</div>
+    </div>
+
+
+    <script src="/javascripts/js/jquery-3.6.0.js"></script>
+    <script>
+        const box = $('.box');
+        let dragTarget = {
+            t : null,
+            dx : 0,
+            dy : 0,
+        }
+
+        const mouseDown = function(event){
+            const t = $(event.target);
+            console.log('t', t);
+            if (t.hasClass('ball')){
+                // offset : 點到的最底層target的座標
+                dragTarget.t = t;
+                dragTarget.dx = event.offsetX;
+                dragTarget.dy = event.offsetY;
+                console.log('dx:', dragTarget.dx)
+                console.log('dy:', dragTarget.dy)
+                console.log('event.offsetX:', event.offsetX)
+                console.log('event.offsetY:', event.offsetY)
+                console.log('dragTarget:',dragTarget)
+                box.on('mousemove', mouseMove);
+            }
+        };
+
+        const mouseUp = function(event){
+            // 當滑鼠up的時候，dragTarget.t 恢復成null
+            dragTarget.t = null;
+            // 當滑鼠up的時候，取消偵聽mousemove
+            box.off('mousemove', mouseMove);
+        };
+
+        // 拖曳的時候要看滑鼠移動到哪裡 version 1
+        const mouseMove = function(event){
+            if(dragTarget.t === null) return;
+            console.log('event.pageX:', event.pageX);
+            console.log('event.pageY:', event.pageY);
+            dragTarget.t.css({
+                left: event.pageX - dragTarget.dx + 'px',
+                top: event.pageY - dragTarget.dy + 'px',
+            })
+        };
+
+
+        box.on('mousedown', mouseDown);
+        $(window).on('mouseup', mouseUp)
+
+    </script>
+</body>
+</html>
