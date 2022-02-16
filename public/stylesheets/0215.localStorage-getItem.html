@@ -39,12 +39,13 @@
             for (let i = 0; i<localStorage.length; i++){
                 // key 是 contact-book + timestamp
                 let key = localStorage.key(i);
-                console.log('key:', key);
-                console.log('contactList:', contactList);
+                // console.log('key:', key);
+                // console.log('contactList:', contactList);
 
                 // 判斷: key有沒有在contactList的第一個
+                // string的indexOf()可以簡單看成contain => '整串文字'.indexOf('某些文字') => -1沒找到
                 if(key.indexOf(contactList)===0){
-                    console.log(key.indexOf(contactList));
+                    // console.log(key.indexOf(contactList));
                     let data = localStorage.getItem(key);
                     data = JSON.parse(data);
                     tbody.innerHTML += `<tr>

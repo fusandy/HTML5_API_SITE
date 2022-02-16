@@ -35,7 +35,9 @@
         switch(event.target.id){
             case 'doConnect':
                 if(!socket || socket.readyState!==WebSocket.OPEN){
+                    // 建立用戶端Socket
                     socket = new WebSocket('ws://localhost:3000');
+                    // 建立完物件之後，緊接著建立偵聽器
                     socket.addEventListener('open', myOpen);
                     socket.addEventListener('message', myMessage);
                     socket.addEventListener('close', myClose);
