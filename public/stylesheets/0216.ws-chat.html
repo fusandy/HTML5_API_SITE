@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ws echo</title>
+    <title>ws chat</title>
 </head>
 <body>
     <button id="doConnect">Connect</button>
@@ -35,7 +35,7 @@
         switch(event.target.id){
             case 'doConnect':
                 if(!socket || socket.readyState!==WebSocket.OPEN){
-                    socket = new WebSocket('ws://localhost:3000');
+                    socket = new WebSocket('ws://192.168.40.200:3000');
                     socket.addEventListener('open', myOpen);
                     socket.addEventListener('message', myMessage);
                     socket.addEventListener('close', myClose);

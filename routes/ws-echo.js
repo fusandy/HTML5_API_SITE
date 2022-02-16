@@ -1,3 +1,6 @@
+// websocket echo 路由
+// 主程式是 bin/www
+
 const WebSocket = require('ws');
 
 const createEchoServer = server => {
