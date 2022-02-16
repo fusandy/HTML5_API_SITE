@@ -5,14 +5,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>localStorage drawapp</title>
+    <style>
+        canvas{
+            border: 2px dashed #808080;
+        }
+    </style>
 </head>
 <body>
-    
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+    <div>
+        <input type="color" id="penColor" value="#808080">
+        <input type="number" min="1" max="50" step="1" id="penSize" value="5"> -
+        <button onclick="clearCanvas()">清空重置</button> -
+        <button onclick="saveCanvas()">儲存</button>
+    </div>
+    <div>
+        載入 <select id="listCombo" onchange="loadCanvas(this.value)"></select>
+    </div>
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
+        // Not finished!!!
+
         // 將 src 轉成 base64
         // 用 new Image() 把 src 讀出來
         // 再 append 到 畫布上
+        const myCanvas = document.querySelector('#myCanvas'),
+		    penColor = document.querySelector('#penColor'),
+		    penSize = document.querySelector('#penSize'),
+		    ctx = myCanvas.getContext('2d');
+        const listCombo = document.querySelector('#listCombo');
+
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+        const mDown = event=>{
+            myCanvas.addEventListener('mouseMove', mMove);
+            window.addEventListener('mouseup', mUp);
+            ctx.beginPath();
+            ctx.moveTo(event.offsetX, event.offsetY)
+        };
+
+        const mUp = event => {
+            myCanvas.addEventListener('mouseMove', mMove);
+            window.addEventListener('mousemove', mMove);
+
+        };
+
+        const mMove = event => {
+            ctx.lineTo(event.offsetX, event.offsetY);
+            ctx.stroke();
+        };
+        myCanvas.addEventListener('mousedown', mDown);
+
+        // 畫筆
+        const setPen = ()=>{
+		    ctx.strokeStyle = penColor.value;
+		    ctx.lineWidth = penSize.value;
+        };
+        penColor.addEventListener('change', setPen);
+        penSize.addEventListener('change', setPen);
+        setPen();
+
+        const clearCanvas = ()=>{
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        };
     </script>
 </body>
 </html>

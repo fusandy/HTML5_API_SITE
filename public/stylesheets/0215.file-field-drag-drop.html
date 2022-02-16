@@ -12,17 +12,28 @@
             background-color: rgb(209, 208, 208);
             border: 2px dashed gray;
         }
+        .upload-img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
-    <input type="file" id="fileField" multiple accept="image/*" style="display: none;">
-    <div class="container">點擊選取檔案</div>
+    
+    <div class="container">點擊選取檔案
+        <input type="file" id="fileField" accept="image/*" style="display: none;">
+    </div>
 
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
-        // TODO : not finished!!!!!!
         const container = document.querySelector('.container');
         const fileField = document.querySelector('#fileField');
+
+        const doLoaded = function(event){
+            const element = `<img class="upload-img" src="${event.target.result}">`;
+            container.innerHTML += element ;
+        }
 
         // 當container被click的時候, fileField.click()也會被觸發
         container.addEventListener('click', function(event){
@@ -33,12 +44,15 @@
             console.log('this', this);
             container.innerHTML = '';
             console.log('fileField.files', fileField.files);
-            // fileFiled[0] 才是 element, fileFiled 是 jQuery 物件
-		    // for(let i=0; i<fileFiled[0].files.length; i++){
-			//     container.append('<br>' + fileFiled[0].files[i].name);
-		    // }
-        })
 
+            for(let file of fileField.files){
+                const fileReader = new FileReader();
+                // FileReader.readAsDataURL()的result屬性將包含一個data:URL格式的字符串（base64編碼）以表示所讀取文件的內容
+                fileReader.readAsDataURL(file);
+                // FileReader是一個非同步的操作
+                fileReader.addEventListener('load', doLoaded);
+            }
+        })
     </script>
 
 </body>

@@ -39,10 +39,12 @@
             for (let i = 0; i<localStorage.length; i++){
                 // key 是 contact-book + timestamp
                 let key = localStorage.key(i);
-                console.log('contactList', contactList);
+                console.log('key:', key);
+                console.log('contactList:', contactList);
 
-                // 判斷: key 有沒有在contactList的第一個
-                // if(key.indexOf(contactList)===0){
+                // 判斷: key有沒有在contactList的第一個
+                if(key.indexOf(contactList)===0){
+                    console.log(key.indexOf(contactList));
                     let data = localStorage.getItem(key);
                     data = JSON.parse(data);
                     tbody.innerHTML += `<tr>
@@ -50,7 +52,7 @@
                     <td>${data.age}</td>
                     <td>${data.mobile}</td>
                     </tr>`
-                // }
+                }
             }
         };
         showData();

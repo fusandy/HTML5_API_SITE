@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>file readAsText</title>
+    <style>
+        .container{
+            width: 800px;
+            height: 600px;
+            background-color: rgb(209, 208, 208);
+            border: 2px dashed gray;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="fileField" style="display: none;" accept="text/*">
+    <button>Open text file</button>
+    <textarea class="container" cols="80" rows="100"></textarea>
+    <script src="./../javascripts/js/jquery-3.6.0.js"></script>
+    <script>
+        const container = $('.container');
+        const fileField = $('#fileField');
+
+        $('button').click(function(event){
+            fileField.click();
+        })
+
+        const readerLoaded = function(event){
+            container.append(event.target.result);
+        }
+
+        fileField.on('change',function(event){
+            let file;
+            let reader;
+            console.log('fileField:',fileField[0].files);
+            // fileFiled[0] 才是 element, fileFiled 是 jQuery 物件
+            for(let i=0; i<fileField[0].files.length; i++){
+                file = fileField[0].files[i];
+                reader = new FileReader();
+                reader.readAsText(file);
+                reader.addEventListener('load', readerLoaded);
+            }
+        })
+    </script>
+</body>
+</html>
