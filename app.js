@@ -25,6 +25,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(serverIndex('public',{icons:true}));
 app.use('/users', usersRouter);
 
+
+// 0216 新增Server sent event
+// setInterval是global function，node也可以使用
+app.get('/try-sse', (req,res)=>{
+  let id = 30;
+  res.writeHead(200,{
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive'
+  });
+  setInterval(function(){
+    const now = new Date();
+    // res.write(`event: dateMSG\n`)
+    res.write(`id: ${id++}\n`)
+    res.write(`data: ${now.toLocaleTimeString()}\n\n`)
+    
+  },2000);
+});
+
+
+
+
+
+
 // catch 404 and forward to error handler
 // middleware
 app.use(function(req, res, next) {

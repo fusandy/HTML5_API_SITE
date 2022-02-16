@@ -39,9 +39,9 @@
             for (let i = 0; i<localStorage.length; i++){
                 // key 是 contact-book + timestamp
                 let key = localStorage.key(i);
-                console.log(key.indexOf(contactList));
+                console.log('contactList', contactList);
 
-                // 為什麼這裡要做這個判斷???
+                // 判斷: key 有沒有在contactList的第一個
                 // if(key.indexOf(contactList)===0){
                     let data = localStorage.getItem(key);
                     data = JSON.parse(data);

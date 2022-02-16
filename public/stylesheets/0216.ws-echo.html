@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ws echo</title>
+</head>
+<body>
+    <button id="doConnect">Connect</button>
+    <button id="doClose">Close</button>
+    <br>
+    <input type="text" id="msg">
+    <button id="doSend">Send</button>
+    <div class="info"></div>
+</body>
+<script>
+    const info = document.querySelector('#info');
+    let socket;
+
+    const myOpen = event => {
+        info.innerHTML += `----- Connected -----<br>`;
+    }
+
+    const myMassage = event => {
+        info.innerHTML += `Information: ${event.data} <br>`;
+    }
+
+    const myClose = event =>{
+        info.innerHTML += `----- Disconnected -----<br>`;
+    }
+
+    document.addEventListener('click', event=>{
+
+        switch(event.target.id){
+            case 'doConnect':
+                if(!socket || socket.readyState!==WebSocket.CONNECTING){
+                    socket = new WebSocket('ws://localhost:3000');
+                    socket.addEventListener('open', myOpen);
+                    socket.addEventListener('massage', myMassage);
+                    socket.addEventListener('close', myClose);
+                };
+                break;
+            case 'doClose':
+                socket.close();
+                break;
+            case 'doSend':
+                socket.send();
+                break;
+        }
+    });
+</script>
+</html>

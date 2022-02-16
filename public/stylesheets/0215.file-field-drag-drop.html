@@ -21,23 +21,23 @@
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
         // TODO : not finished!!!!!!
-        const container = $('.container');
-        const fileField = $('#fileField');
+        const container = document.querySelector('.container');
+        const fileField = document.querySelector('#fileField');
 
         // 當container被click的時候, fileField.click()也會被觸發
-        container.on('click', function(event){
+        container.addEventListener('click', function(event){
             fileField.click(); 
         })
 
-        // fileField.on('change', function(event){
-        //     console.log('this', this);
-        //     container.innerHTML = '';
-        //     console.log('fileField.files', fileField.files);
-        //     // fileFiled[0] 才是 element, fileFiled 是 jQuery 物件
-		//     for(let i=0; i<fileFiled[0].files.length; i++){
-		// 	    container.append('<br>' + fileFiled[0].files[i].name);
-		//     }
-        // })
+        fileField.addEventListener('change', function(event){
+            console.log('this', this);
+            container.innerHTML = '';
+            console.log('fileField.files', fileField.files);
+            // fileFiled[0] 才是 element, fileFiled 是 jQuery 物件
+		    // for(let i=0; i<fileFiled[0].files.length; i++){
+			//     container.append('<br>' + fileFiled[0].files[i].name);
+		    // }
+        })
 
     </script>
 

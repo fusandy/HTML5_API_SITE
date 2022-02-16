@@ -23,6 +23,16 @@
     </div>
     <script src="/javascripts/js/jquery-3.6.0.js"></script>
     <script>
+     // todo 放開會恢復原本的背景色
+
+    window.addEventListener('dragover', function(event){
+        event.preventDefault();
+    },true);
+    window.addEventListener('drop', function(event){
+        event.preventDefault();
+    },true);
+    // use capture : true
+
 
      const box = $('.box');
 
@@ -38,12 +48,16 @@
         })
      });
 
-     box.on('dragover', function(event){
-        event.preventDefault();
-     });
+    //window 設定了capture偵聽事件，box的dragover, drop就不需要再額外設置preventDefault
+    //  box.on('dragover', function(event){
+    //     event.preventDefault();
+    //  });
 
      box.on('drop', function(event){
-        event.preventDefault();
+        // event.preventDefault();
+        box.css({
+            backgroundColor : 'rgb(201, 201, 201)'
+        })
         console.log(event.originalEvent.dataTransfer.files)
      });
     </script>
